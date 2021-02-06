@@ -1,0 +1,23 @@
+{
+  "extends": ["tslint:recommended", "tslint-react"],
+  "rules" : {
+    "max-classes-per-file": false,
+    "quotemark" : [true, "single", "jsx-single"],
+    "whitespace": [true,
+      "check-branch",
+      "check-operator",
+      "check-module",
+      "check-separator",
+      "check-rest-spread",
+      "check-type",
+      "check-typecast",
+      "check-type-operator"]
+  },
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  }
+}

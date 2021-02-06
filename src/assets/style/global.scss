@@ -1,0 +1,23 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+a {
+  text-decoration: none;
+}
+button {
+  border: 0;
+  outline: none;
+  &:hover, &:focus {
+    border: 0;
+    outline: none;
+  }
+}

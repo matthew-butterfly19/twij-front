@@ -1,0 +1,13 @@
+.formRoot {
+  .questionList {
+    padding: 15px 0;
+  }
+
+  .formRow {
+    display: grid;
+    padding: 15px 0;
+    grid-auto-flow: column;
+    grid-auto-columns: 1.5fr 1fr;
+    grid-gap: 50px;
+  }
+}

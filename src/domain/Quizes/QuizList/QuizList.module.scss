@@ -1,0 +1,11 @@
+.quizList {
+  margin: 10px 5px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .quizListItem {
+    margin: 15px;
+  }
+}
