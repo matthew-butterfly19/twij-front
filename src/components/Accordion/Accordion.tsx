@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import {
   AccordionDetails,
   AccordionSummary,
-  Typography,
   Accordion as AccordionMt,
-  FormControlLabel, Checkbox, IconButton, Tooltip,
+  IconButton, Tooltip,
 } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import DeleteIcon from '@material-ui/icons/Delete';
-
-import styles from './Accordion.module.scss';
 
 export interface AccordionProps {
   summary: React.ReactNode;
