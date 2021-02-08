@@ -1,64 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {actions, selectors} from "@store/quizSettings";
 
 import { Paper as PaperMt } from "@material-ui/core";
-
 import QuizListItem from "@domain/Quizes/QuizList/QuizListItem/QuizListItem";
-import AddNewQuiz from "@domain/Quizes/AddNewQuiz/AddNewQuiz";
 
+import AddNewQuiz from "@domain/Quizes/AddNewQuiz/AddNewQuiz";
 import styles from './QuizList.module.scss';
 
-const quizList = [
-  {
-    title: 'Html',
-    subject: 'Twij',
-    questions: 15,
-    date: '13.12.22'
-  },
-  {
-    title: 'Html',
-    subject: 'Twij',
-    questions: 15,
-    date: '13.12.22'
-  },
-  {
-    title: 'Html',
-    subject: 'Twij',
-    questions: 15,
-    date: '13.12.22'
-  },
-  {
-    title: 'Html',
-    subject: 'Twij',
-    questions: 15,
-    date: '13.12.22'
-  },
-  {
-    title: 'Html',
-    subject: 'Twij',
-    questions: 15,
-    date: '13.12.22'
-  },
-  {
-    title: 'Html',
-    subject: 'Twij',
-    questions: 15,
-    date: '13.12.22'
-  }
-]
-
 const QuizList = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const quizzes = useSelector(selectors.quizzes);
 
-  const onAddNewQuiz = () => {
-
-  }
+  useEffect(() => {
+    dispatch(actions.fetchQuizzes());
+  }, [dispatch, actions]);
 
   return (
     <div className={styles.quizList}>
       <AddNewQuiz />
-      {quizList.map((question, index) => (
-        <div className={styles.quizListItem} key={index}>
+      {quizzes.map((quiz, index) => (
+        <div className={styles.quizListItem} key={quiz.id}>
           <PaperMt elevation={index}>
-            <QuizListItem {...question} />
+            <QuizListItem {...quiz} />
           </PaperMt>
         </div>
       ))}

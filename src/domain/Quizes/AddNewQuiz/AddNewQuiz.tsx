@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 
+import { useDispatch, useSelector } from "react-redux";
+import { actions, selectors } from '@store/quizSettings';
 import CreateQuizButton from "@domain/Quizes/AddNewQuiz/AddNewQuizButton/CreateQuizButton";
-import QuizSettingsModal from "@domain/Quizes/QuizSettingsModal/QuizSettingsModal";
+import QuizSettingsModal from "@domain/Quizes/AddNewQuiz/QuizSettingsModal/QuizSettingsModal";
 
 const AddNewQuiz = (): JSX.Element => {
-  const [isCreateQuizModalVisible, setIsCreateQuizModalVisible] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const isCreateQuizModalVisible = useSelector(selectors.modalVisibility);
 
-  const onStartAddingQuiz = () => {
-    setIsCreateQuizModalVisible(true);
+  const onOpenQuizCreation = () => {
+    dispatch(actions.onModalSettingsOpen());
   }
 
   const onCancelQuizCreation = () => {
-    setIsCreateQuizModalVisible(false);
+    dispatch(actions.onModalSettingsCancel());
   }
 
   const onAddNewQuiz = () => {
-
+    dispatch(actions.updateQuiz());
   }
 
   return (
     <div>
-      <CreateQuizButton onAddNewQuiz={onStartAddingQuiz}/>
+      <CreateQuizButton onAddNewQuiz={onOpenQuizCreation}/>
       <QuizSettingsModal
         isCreateQuizModalVisible={isCreateQuizModalVisible}
         onAddQuiz={onAddNewQuiz}

@@ -15,6 +15,7 @@ export interface QuestionProps {
   points: number;
 }
 
+
 export const initialQuestion: QuestionProps = {
   question: '',
   answerA: '',
@@ -25,30 +26,77 @@ export const initialQuestion: QuestionProps = {
   points: 1
 }
 
+export interface CommonQuizProps {
+  id: number;
+  name: string;
+  date: string;
+  subject: string;
+  questionsCount: number;
+}
+
+interface DetailedQuizProps {
+  id?: number;
+  name: string;
+  subject: string;
+  questions: QuestionProps[];
+}
+
 export interface DetailedQuestionProps extends IdentifierProps {
   question: QuestionProps;
 }
 
 interface QuizSettingsModel {
-  questions: QuestionProps[]
+  quizzes: CommonQuizProps[];
+  currentQuiz: DetailedQuizProps;
+  modalVisibility: boolean;
 }
 
 const initialState: QuizSettingsModel = {
-  questions: []
+  quizzes: [],
+  currentQuiz: {
+    id: undefined,
+    name: '',
+    subject: '',
+    questions: []
+  },
+  modalVisibility: false
 }
 
 const reducers = {
-  pushNewQuestion: (state: QuizSettingsModel): void => {
-    state.questions.push(initialQuestion);
+  fetchQuizzes: (): void => {},
+  fetchQuizzesSucceeded: (state: QuizSettingsModel, action: PayloadAction<CommonQuizProps[]>): void => {
+    state.quizzes = action.payload;
+  },
+  fetchQuiz: (state: QuizSettingsModel, action: PayloadAction<number>): void => {},
+  fetchQuizSucceeded: (state: QuizSettingsModel, action: PayloadAction<DetailedQuizProps>): void => {
+    state.currentQuiz = action.payload;
+  },
+  removeQuiz: (state: QuizSettingsModel, action: PayloadAction<number>): void => {},
+  updateQuizName: (state: QuizSettingsModel, action: PayloadAction<string>): void => {
+    state.currentQuiz.name = action.payload;
+  },
+  updateQuizSubject: (state: QuizSettingsModel, action: PayloadAction<string>): void => {
+    state.currentQuiz.subject = action.payload;
+  },
+  updateQuiz: (): void => {},
+  pushQuestion: (state: QuizSettingsModel): void => {
+    state.currentQuiz.questions.push(initialQuestion);
   },
   removeQuestion: (state: QuizSettingsModel, action: PayloadAction<IdentifierProps>): void => {
-    state.questions.splice(action.payload.index, 1);
+    state.currentQuiz.questions.splice(action.payload.index, 1);
   },
-  setQuestion: (state: QuizSettingsModel, action: PayloadAction<DetailedQuestionProps>): void => {
-    state.questions[action.payload.index] = action.payload.question;
+  updateQuestion: (state: QuizSettingsModel, action: PayloadAction<DetailedQuestionProps>): void => {
+    state.currentQuiz.questions[action.payload.index] = action.payload.question;
   },
   onModalSettingsOpen: (state: QuizSettingsModel): void => {
-    state.questions = [initialQuestion];
+    state.modalVisibility = true;
+  },
+  onModalSettingsCancel: (state: QuizSettingsModel): void => {
+    state.modalVisibility = false;
+    state.currentQuiz.id = undefined;
+    state.currentQuiz.name = '';
+    state.currentQuiz.subject = '';
+    state.currentQuiz.questions = [initialQuestion];
   }
 }
 
@@ -59,7 +107,7 @@ export const authorizationSlice = createSlice({
 });
 
 const getQuestions = (state: RootState): DetailedQuestionProps[] => {
-  return state.quizSettings.questions.map((quest, index) => {
+  return state.quizSettings.currentQuiz.questions.map((quest, index) => {
     return {
       question: quest,
       index
@@ -68,12 +116,17 @@ const getQuestions = (state: RootState): DetailedQuestionProps[] => {
 }
 
 const getPoints = (state: RootState): number => {
-  return state.quizSettings.questions.reduce((sum, quest) => { return sum + quest.points }, 0);
+  return state.quizSettings.currentQuiz.questions.reduce((sum, quest) => { return sum + quest.points }, 0);
 }
 
 export const selectors = {
+  points: getPoints,
   questions: getQuestions,
-  points: getPoints
+  name: (state: RootState): string => state.quizSettings.currentQuiz.name,
+  subject: (state: RootState): string => state.quizSettings.currentQuiz.subject,
+  quizzes: (state: RootState): CommonQuizProps[] => state.quizSettings.quizzes,
+  modalVisibility: (state: RootState): boolean => state.quizSettings.modalVisibility,
+  currentQuiz: (state: RootState): DetailedQuizProps => state.quizSettings.currentQuiz
 };
 
 export const actions = authorizationSlice.actions;

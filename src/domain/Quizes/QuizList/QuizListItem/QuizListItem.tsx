@@ -1,5 +1,7 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
 
+import {actions, CommonQuizProps} from "@store/quizSettings";
 import { makeStyles as makeStylesMt } from '@material-ui/core/styles';
 import CardActionsMt from '@material-ui/core/CardActions';
 import CardMt from '@material-ui/core/Card';
@@ -15,15 +17,17 @@ const useStyles = makeStylesMt({
   }
 });
 
-export interface QuizListItemProps {
-  title: string;
-  subject: string;
-  questions: number;
-  date: string;
-}
-
-const QuizListItem = ({ title, subject, questions, date }: QuizListItemProps): JSX.Element => {
+const QuizListItem = ({ name, subject, questionsCount, date, id }: CommonQuizProps): JSX.Element => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  const onUpdateQuizHandle = (): void => {
+    dispatch(actions.fetchQuiz(id));
+  }
+
+  const onRemoveQuizHandle = (): void => {
+    dispatch(actions.removeQuiz(id));
+  }
 
   return (
     <CardMt className={classes.root}>
@@ -33,21 +37,21 @@ const QuizListItem = ({ title, subject, questions, date }: QuizListItemProps): J
             {date}
           </TypographyMt>
           <TypographyMt variant="h5" component="h2">
-            {title}
+            {name}
           </TypographyMt>
           <TypographyMt color="textSecondary">
             {subject}
           </TypographyMt>
           <TypographyMt variant="body2" component="p">
-            Liczba pytań: {questions}
+            Liczba pytań: {questionsCount}
           </TypographyMt>
         </CardContentMt>
       </CardActionAreaMt>
       <CardActionsMt>
-        <ButtonMt size="small" color="primary">
+        <ButtonMt onClick={onUpdateQuizHandle} size="small" color="primary">
           Modyfikuj
         </ButtonMt>
-        <ButtonMt size="small" color="primary">
+        <ButtonMt onClick={onRemoveQuizHandle} size="small" color="primary">
           Usuń
         </ButtonMt>
       </CardActionsMt>

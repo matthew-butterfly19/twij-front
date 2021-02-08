@@ -17,11 +17,12 @@ export interface QuestionProps {
 export interface QuestionInputProps {
   onChange?: (newQuestion: QuestionProps) => void;
   questionProps: QuestionProps;
+  uniqueId?: number;
 }
 
-const QuestionAnswersInput = ({ onChange, questionProps }: QuestionInputProps): JSX.Element => {
+const QuestionAnswersInput = ({ onChange, questionProps, uniqueId }: QuestionInputProps): JSX.Element => {
   const [quizItem, setQuizItem] = useState<QuestionProps>(questionProps);
-
+  const id = uniqueId ? uniqueId.toString() : '';
   useEffect(() => {
     if (!onChange) {
       return;
@@ -72,7 +73,7 @@ const QuestionAnswersInput = ({ onChange, questionProps }: QuestionInputProps): 
         className={styles.question}
         value={quizItem.question}
         onChange={handleQuestionChange}
-        id={'Question'}
+        id={`${id}-name`}
         label={'Question'}
         variant={'outlined'}
         multiline={true}
@@ -87,7 +88,7 @@ const QuestionAnswersInput = ({ onChange, questionProps }: QuestionInputProps): 
               <TextInput
                 value={answer}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleAnswerChange(event, prop)}
-                id={index.toString()}
+                id={`${id}-slider-${index}`}
                 className={styles.questionInput}
                 inputProps={{
                   startAdornment: (
@@ -100,6 +101,7 @@ const QuestionAnswersInput = ({ onChange, questionProps }: QuestionInputProps): 
             )
             return (
               <FormControlLabel
+                id={`${id}-radio-${index}`}
                 className={styles.answerOption}
                 value={index}
                 control={<Radio />}
@@ -112,6 +114,7 @@ const QuestionAnswersInput = ({ onChange, questionProps }: QuestionInputProps): 
       <div>
         <p>Liczba punktów za poprawną odpowiedź:</p>
         <Slider
+          id={`${id}-slider`}
           value={quizItem.points}
           onChange={handlePointsChange}
           defaultValue={1}

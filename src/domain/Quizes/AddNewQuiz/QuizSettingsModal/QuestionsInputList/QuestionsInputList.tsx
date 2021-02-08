@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import { actions as QuizSettingsActions, selectors as QuizSettingsSelectors } from '@store/quizSettings';
@@ -7,7 +7,7 @@ import QuestionHeaderInput from "@components/QuestionInput/QuestionHeaderInput/Q
 import QuestionInput, {QuestionProps} from "@components/QuestionInput/QuestionAnswersInput/QuestionAnswersInput";
 
 import styles from "./QuestionsInputList.module.scss";
-import Button from '@src/components/AddElementButton/Button';
+import Button from '@components/AddElementButton/Button';
 
 const QuestionsInputList = ():JSX.Element => {
   const dispatch = useDispatch();
@@ -15,11 +15,11 @@ const QuestionsInputList = ():JSX.Element => {
   const points = useSelector(QuizSettingsSelectors.points);
 
   const onAddQuestion = () => {
-    dispatch(QuizSettingsActions.pushNewQuestion());
+    dispatch(QuizSettingsActions.pushQuestion());
   }
 
   const onQuestionChange = (newQuestion: QuestionProps, index: number) => {
-    dispatch(QuizSettingsActions.setQuestion({
+    dispatch(QuizSettingsActions.updateQuestion({
       question: newQuestion,
       index
     }))
@@ -40,16 +40,18 @@ const QuestionsInputList = ():JSX.Element => {
         </Button>
       </div>
       {
-        questions.map((quest) => {
-          const header = <QuestionHeaderInput onRemove={onRemoveChange} index={quest.index} {...quest.question} />
+        questions.map((quest, index) => {
+          const header = <QuestionHeaderInput key={index} onRemove={onRemoveChange} index={quest.index} {...quest.question} />
           const questionInput = (
             <QuestionInput
+              uniqueId={index}
               questionProps={{...quest.question}}
               onChange={(newQuestion) => onQuestionChange(newQuestion, quest.index)}
             />
           );
           return (
             <Accordion
+              key={index}
               summary={header}
               details={questionInput}
             />

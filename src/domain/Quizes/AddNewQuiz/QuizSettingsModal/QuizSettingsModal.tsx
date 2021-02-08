@@ -1,6 +1,9 @@
 import React from 'react';
 
-import QuestionsInputList from "@domain/Quizes/QuizSettingsModal/QuestionsInputList/QuestionsInputList";
+import {useDispatch, useSelector} from "react-redux";
+import {actions, selectors} from "@store/quizSettings";
+
+import QuestionsInputList from "@domain/Quizes/AddNewQuiz/QuizSettingsModal/QuestionsInputList/QuestionsInputList";
 import TextInput from "@components/FormItems/TextInput/TextInput";
 import Modal from "@components/Modal/Modal";
 
@@ -16,6 +19,18 @@ export interface CreateQuizModalProps {
 }
 
 const QuizSettingsModal = ({ isCreateQuizModalVisible, onCancelQuizCreation, onAddQuiz }: CreateQuizModalProps): JSX.Element => {
+  const dispatch = useDispatch();
+  const quizName = useSelector(selectors.name);
+  const quizSubject = useSelector(selectors.subject);
+
+  const onQuizNameChangeHandle = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    dispatch(actions.updateQuizName(event.target.value));
+  }
+
+  const onQuizSubjectChangeHandle = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    dispatch(actions.updateQuizSubject(event.target.value));
+  }
+
   return (
     <Modal
       isModalOpen={isCreateQuizModalVisible}
@@ -26,8 +41,18 @@ const QuizSettingsModal = ({ isCreateQuizModalVisible, onCancelQuizCreation, onA
     >
       <div className={styles.formRoot}>
         <div className={styles.formRow}>
-          <TextInput id="quiz-name" label="Nazwa" />
-          <TextInput id="quiz-subject" label="Przedmiot" />
+          <TextInput
+            id="quiz-name"
+            label="Nazwa"
+            value={quizName}
+            onChange={onQuizNameChangeHandle}
+          />
+          <TextInput
+            id="quiz-subject"
+            label="Przedmiot"
+            value={quizSubject}
+            onChange={onQuizSubjectChangeHandle}
+          />
         </div>
         <div className={styles.questionList}>
           <QuestionsInputList />
