@@ -10,6 +10,8 @@ import CardContentMt from '@material-ui/core/CardContent';
 import TypographyMt from '@material-ui/core/Typography';
 import ButtonMt from '@material-ui/core/Button';
 
+import styles from './QuizListItem.module.scss';
+
 const useStyles = makeStylesMt({
   root: {
     width: 190,
@@ -33,13 +35,13 @@ const QuizListItem = ({ name, subject, questionsCount, date, id }: CommonQuizPro
     <CardMt className={classes.root}>
       <CardActionAreaMt>
         <CardContentMt>
-          <TypographyMt color="textSecondary" gutterBottom>
+          <TypographyMt color="textSecondary" gutterBottom className={styles.dotting}>
             {date}
           </TypographyMt>
-          <TypographyMt variant="h5" component="h2">
+          <TypographyMt variant="h5" component="h2" className={styles.dotting}>
             {name}
           </TypographyMt>
-          <TypographyMt color="textSecondary">
+          <TypographyMt color="textSecondary" className={styles.dotting}>
             {subject}
           </TypographyMt>
           <TypographyMt variant="body2" component="p">
