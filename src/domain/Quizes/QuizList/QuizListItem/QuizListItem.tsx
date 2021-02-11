@@ -2,6 +2,7 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 
 import {actions, CommonQuizProps} from "@store/quizSettings";
+import { actions as scheduleActions } from "@store/quizSchedule";
 import { makeStyles as makeStylesMt } from '@material-ui/core/styles';
 import CardActionsMt from '@material-ui/core/CardActions';
 import CardMt from '@material-ui/core/Card';
@@ -11,6 +12,7 @@ import TypographyMt from '@material-ui/core/Typography';
 import ButtonMt from '@material-ui/core/Button';
 
 import styles from './QuizListItem.module.scss';
+import {put} from "redux-saga/effects";
 
 const useStyles = makeStylesMt({
   root: {
@@ -25,15 +27,22 @@ const QuizListItem = ({ name, subject, questionsCount, date, id }: CommonQuizPro
 
   const onUpdateQuizHandle = (): void => {
     dispatch(actions.fetchQuiz(id));
+    dispatch(actions.onModalSettingsOpen());
+
   }
 
   const onRemoveQuizHandle = (): void => {
     dispatch(actions.removeQuiz(id));
   }
 
+  const onQuizScheduleHandle = (): void => {
+    dispatch(actions.fetchQuiz(id));
+    dispatch(scheduleActions.onModalScheduleOpen());
+  }
+
   return (
-    <CardMt className={classes.root}>
-      <CardActionAreaMt>
+    <CardMt className={`${classes.root} ${styles.container}`}>
+      <CardActionAreaMt onClick={onQuizScheduleHandle}>
         <CardContentMt>
           <TypographyMt color="textSecondary" gutterBottom className={styles.dotting}>
             {date}
@@ -49,7 +58,7 @@ const QuizListItem = ({ name, subject, questionsCount, date, id }: CommonQuizPro
           </TypographyMt>
         </CardContentMt>
       </CardActionAreaMt>
-      <CardActionsMt>
+      <CardActionsMt className={styles.actionButtons}>
         <ButtonMt onClick={onUpdateQuizHandle} size="small" color="primary">
           Modyfikuj
         </ButtonMt>
@@ -61,4 +70,4 @@ const QuizListItem = ({ name, subject, questionsCount, date, id }: CommonQuizPro
   );
 }
 
-export default QuizListItem
+export default QuizListItem;

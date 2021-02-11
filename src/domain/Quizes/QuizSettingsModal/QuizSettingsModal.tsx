@@ -3,8 +3,8 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {actions, selectors} from "@store/quizSettings";
 
-import QuestionsInputList from "@domain/Quizes/AddNewQuiz/QuizSettingsModal/QuestionsInputList/QuestionsInputList";
-import TextInput from "@components/FormItems/TextInput/TextInput";
+import QuestionsInputList from "@domain/Quizes/QuizSettingsModal/QuestionsInputList/QuestionsInputList";
+import TextInput from "@components/Inputs/TextInput/TextInput";
 import Modal from "@components/Modal/Modal";
 
 import styles from './QuizSettingsModal.module.scss';
@@ -22,6 +22,9 @@ const QuizSettingsModal = ({ isCreateQuizModalVisible, onCancelQuizCreation, onA
   const dispatch = useDispatch();
   const quizName = useSelector(selectors.name);
   const quizSubject = useSelector(selectors.subject);
+  const isCurrentQuizBeingFetch = useSelector(selectors.isCurrentQuizBeingFetch);
+  const isQuizBeingEdited = !!useSelector(selectors.currentQuiz).id;
+  const title = isQuizBeingEdited ? 'Edytowanie quizu' : 'Tworzenie quizu';
 
   const onQuizNameChangeHandle = (event: React.ChangeEvent<HTMLInputElement>): void => {
     dispatch(actions.updateQuizName(event.target.value));
@@ -33,8 +36,9 @@ const QuizSettingsModal = ({ isCreateQuizModalVisible, onCancelQuizCreation, onA
 
   return (
     <Modal
+      title={title}
+      loading={isCurrentQuizBeingFetch}
       isModalOpen={isCreateQuizModalVisible}
-      title={'Tworzenie quizu'}
       description={'Stwórz quiz by móc go wykorzystać w planowaniu testów'}
       onCancel={onCancelQuizCreation}
       onSubmit={onAddQuiz}

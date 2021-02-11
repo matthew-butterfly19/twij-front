@@ -47,28 +47,33 @@ export interface DetailedQuestionProps extends IdentifierProps {
 
 interface QuizSettingsModel {
   quizzes: CommonQuizProps[];
+  isCurrentQuizBeingFetch: boolean;
   currentQuiz: DetailedQuizProps;
   modalVisibility: boolean;
 }
 
 const initialState: QuizSettingsModel = {
   quizzes: [],
+  isCurrentQuizBeingFetch: false,
   currentQuiz: {
     id: undefined,
     name: '',
     subject: '',
-    questions: []
+    questions: [initialQuestion]
   },
-  modalVisibility: false
+  modalVisibility: false,
 }
 
 const reducers = {
-  fetchQuizzes: (): void => {},
+  fetchQuizzes: (state: QuizSettingsModel): void => {},
   fetchQuizzesSucceeded: (state: QuizSettingsModel, action: PayloadAction<CommonQuizProps[]>): void => {
     state.quizzes = action.payload;
   },
-  fetchQuiz: (state: QuizSettingsModel, action: PayloadAction<number>): void => {},
+  fetchQuiz: (state: QuizSettingsModel, action: PayloadAction<number>): void => {
+    state.isCurrentQuizBeingFetch = true;
+  },
   fetchQuizSucceeded: (state: QuizSettingsModel, action: PayloadAction<DetailedQuizProps>): void => {
+    state.isCurrentQuizBeingFetch = false;
     state.currentQuiz = action.payload;
   },
   removeQuiz: (state: QuizSettingsModel, action: PayloadAction<number>): void => {},
@@ -91,12 +96,9 @@ const reducers = {
   onModalSettingsOpen: (state: QuizSettingsModel): void => {
     state.modalVisibility = true;
   },
-  onModalSettingsCancel: (state: QuizSettingsModel): void => {
+  onModalSettingsClose: (state: QuizSettingsModel): void => {
     state.modalVisibility = false;
-    state.currentQuiz.id = undefined;
-    state.currentQuiz.name = '';
-    state.currentQuiz.subject = '';
-    state.currentQuiz.questions = [initialQuestion];
+    state.currentQuiz = initialState.currentQuiz;
   }
 }
 
@@ -122,6 +124,7 @@ const getPoints = (state: RootState): number => {
 export const selectors = {
   points: getPoints,
   questions: getQuestions,
+  isCurrentQuizBeingFetch: (state: RootState): boolean => state.quizSettings.isCurrentQuizBeingFetch,
   name: (state: RootState): string => state.quizSettings.currentQuiz.name,
   subject: (state: RootState): string => state.quizSettings.currentQuiz.subject,
   quizzes: (state: RootState): CommonQuizProps[] => state.quizSettings.quizzes,

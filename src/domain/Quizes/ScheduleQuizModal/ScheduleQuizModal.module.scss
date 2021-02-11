@@ -1,0 +1,22 @@
+.formRoot {
+  padding: 15px 45px 15px 15px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 30px;
+
+  .inputRow {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 10px;
+    gap: 20px;
+
+    .unit {
+      margin: 0;
+      line-height: 32px;
+      vertical-align: center;
+    }
+  }
+  .inputRowHeader {
+    padding-bottom: 5px;
+  }
+}

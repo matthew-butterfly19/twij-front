@@ -18,7 +18,6 @@ function* fetchQuiz(action: PayloadAction<number>) {
     }
   });
   yield put(actions.fetchQuizSucceeded(quizRes.data.quiz));
-  yield put(actions.onModalSettingsOpen());
 }
 
 function* removeQuiz(action: PayloadAction<number>) {
@@ -37,7 +36,7 @@ function* updateQuiz() {
     quiz: currentQuiz
   });
   yield put(actions.fetchQuizzes());
-  yield put(actions.onModalSettingsCancel());
+  yield put(actions.onModalSettingsClose());
 }
 
 export default function* uploadSaga() {

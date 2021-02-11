@@ -2,6 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
 import quizSettings from './quizSettings';
+import quizSchedule from './quizSchedule';
 
 import rootSaga from '@src/sagas';
 
@@ -15,7 +16,8 @@ const middleware = [
 
 const store = configureStore({
     reducer: {
-      quizSettings
+      quizSettings,
+      quizSchedule,
     },
     middleware
 });

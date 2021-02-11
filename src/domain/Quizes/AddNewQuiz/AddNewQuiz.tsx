@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { actions, selectors } from '@store/quizSettings';
 import CreateQuizButton from "@domain/Quizes/AddNewQuiz/AddNewQuizButton/CreateQuizButton";
-import QuizSettingsModal from "@domain/Quizes/AddNewQuiz/QuizSettingsModal/QuizSettingsModal";
+import QuizSettingsModal from "@domain/Quizes/QuizSettingsModal/QuizSettingsModal";
 
 const AddNewQuiz = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const AddNewQuiz = (): JSX.Element => {
   }
 
   const onCancelQuizCreation = () => {
-    dispatch(actions.onModalSettingsCancel());
+    dispatch(actions.onModalSettingsClose());
   }
 
   const onAddNewQuiz = () => {

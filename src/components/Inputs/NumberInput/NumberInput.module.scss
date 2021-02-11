@@ -1,0 +1,7 @@
+.numberInput {
+  width: 80px;
+  text-align: center;
+  :global(.MuiSelect-root) {
+    padding-left: 10px;
+  }
+}

@@ -1,0 +1,28 @@
+.sepInputDiv {
+  display: grid;
+  margin-top: 20px;
+  margin-left: 5px;
+  grid-auto-flow: column;
+  grid-auto-columns: min-content 60px;
+  grid-gap: 25px;
+  height: 30px;
+  align-items: center;
+}
+
+.addressesDiv {
+  margin-top: 50px;
+  display: grid;
+  flex-direction: row;
+  grid-gap: 10px;
+
+  .chips {
+    & > * {
+      margin-left: 5px;
+      margin-top: 5px;
+      max-width: 250px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

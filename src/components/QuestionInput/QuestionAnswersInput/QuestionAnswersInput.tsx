@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {FormControlLabel, InputAdornment, Radio, RadioGroup, Slider} from "@material-ui/core";
-import TextInput from "@components/FormItems/TextInput/TextInput";
+import TextInput from "@components/Inputs/TextInput/TextInput";
 
 import styles from './QuestionAnswersInput.module.scss';
 

@@ -10,6 +10,7 @@ export type onChangePayload = (event: React.ChangeEvent<HTMLInputElement>) => vo
 
 export interface TextInputProps {
   id: string;
+  placeholder?: string;
   value?: string;
   onChange?: onChangePayload;
   label?: string;
@@ -21,11 +22,12 @@ export interface TextInputProps {
   className?: string;
 }
 
-const TextInput = ({ id, label, inputProps, multiline, rowsMax, onChange, value, rows, className, variant='outlined' }: TextInputProps): JSX.Element => {
+const TextInput = ({ id, placeholder, label, inputProps, multiline, rowsMax, onChange, value, rows, className, variant='outlined' }: TextInputProps): JSX.Element => {
   return (
     <FormControlMt className={`${styles.formItemContainer} ${className}`}>
       <TextFieldMt
         onChange={onChange}
+        placeholder={placeholder}
         value={value}
         autoComplete={'off'}
         fullWidth
