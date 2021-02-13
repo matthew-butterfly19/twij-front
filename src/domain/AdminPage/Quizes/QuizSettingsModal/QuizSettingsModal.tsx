@@ -3,7 +3,7 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {actions, selectors} from "@store/quizSettings";
 
-import QuestionsInputList from "@domain/Quizes/QuizSettingsModal/QuestionsInputList/QuestionsInputList";
+import QuestionsInputList from "@domain/AdminPage/Quizes/QuizSettingsModal/QuestionsInputList/QuestionsInputList";
 import TextInput from "@components/Inputs/TextInput/TextInput";
 import Modal from "@components/Modal/Modal";
 

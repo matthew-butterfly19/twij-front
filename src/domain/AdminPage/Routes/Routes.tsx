@@ -1,21 +1,21 @@
 import React, { memo, lazy } from 'react';
 import { Switch } from 'react-router-dom';
 
-import PrivateRoute from "@domain/Routes/PrivateRoute/PrivateRoute";
+import PrivateRoute from "@domain/AdminPage/Routes/PrivateRoute/PrivateRoute";
 
-const Dashboard = lazy(() => import('@domain/Dashboard/Dashboard'));
-const QuizSettings = lazy(() => import('@domain/Quizes/Quizzes'));
+const Dashboard = lazy(() => import('@domain/AdminPage/Dashboard/Dashboard'));
+const QuizSettings = lazy(() => import('@domain/AdminPage/Quizes/Quizzes'));
 
 const Routes = (): JSX.Element => {
   return (
     <Switch>
       <PrivateRoute
-        path='/'
+        path='/admin'
         exact={true}
         component={Dashboard}
       />
       <PrivateRoute
-        path='/quizy'
+        path='/admin/quizy'
         exact={true}
         component={QuizSettings}
       />

@@ -1,0 +1,16 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(#f3f3f3, 0.6);
+
+  .spinnerOverlay {
+    position: absolute;
+    color: #696969;
+  }
+}

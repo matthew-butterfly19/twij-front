@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App from '@domain/App/App';
+import App from '@domain/App';
 import store from '@store/index';
 import { BrowserRouter as Router } from "react-router-dom";
-
 const ROOT_ID = 'root';
+require('./index.css');
 
 const renderApp = () => ReactDOM.render(
   <Provider store={store}>

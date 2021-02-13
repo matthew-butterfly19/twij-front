@@ -6,6 +6,7 @@ export interface IdentifierProps {
 }
 
 export interface QuestionProps {
+  id?: string;
   question: string;
   answerA: string;
   answerB: string;
@@ -102,7 +103,7 @@ const reducers = {
   }
 }
 
-export const authorizationSlice = createSlice({
+export const quizSettingsSlice = createSlice({
   name: 'quizSettings',
   initialState,
   reducers
@@ -132,6 +133,6 @@ export const selectors = {
   currentQuiz: (state: RootState): DetailedQuizProps => state.quizSettings.currentQuiz
 };
 
-export const actions = authorizationSlice.actions;
+export const actions = quizSettingsSlice.actions;
 
-export default authorizationSlice.reducer;
+export default quizSettingsSlice.reducer;

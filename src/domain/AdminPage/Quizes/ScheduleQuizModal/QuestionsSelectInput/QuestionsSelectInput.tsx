@@ -42,36 +42,39 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function not(a: number[], b: number[]) {
+function not(a: string[], b: string[]) {
   return a.filter((value) => b.indexOf(value) === -1);
 }
 
-function intersection(a: number[], b: number[]) {
+function intersection(a: string[], b: string[]) {
   return a.filter((value) => b.indexOf(value) !== -1);
 }
 
-function union(a: number[], b: number[]) {
+function union(a: string[], b: string[]) {
   return [...a, ...not(b, a)];
 }
 
+interface DefinedQuestionProps extends QuestionProps{
+  id: string;
+}
+
 export interface QuestionsSelectInputProps {
-  questions: QuestionProps[],
-  selectedIds: number[],
-  onUpdate: (newList: number[]) => void;
+  questions: DefinedQuestionProps[],
+  selectedIds: string[],
+  onUpdate: (newList: string[]) => void;
 }
 
 export default function QuestionsSelectInput({ questions, selectedIds, onUpdate }: QuestionsSelectInputProps) {
   const classes = useStyles();
-  const allIds = questions.map((_, index) => index);
-
-  const [checked, setChecked] = React.useState<number[]>([]);
-  const [left, setLeft] = React.useState<number[]>(not(allIds, selectedIds));
-  const [right, setRight] = React.useState<number[]>([...selectedIds]);
+  const allIds = questions.map((quest) => (quest.id));
+  const [checked, setChecked] = React.useState<string[]>([]);
+  const left: string[] = not(allIds, selectedIds);
+  const right: string[] = [...selectedIds];
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
 
-  const handleToggle = (value: number) => () => {
+  const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -84,9 +87,9 @@ export default function QuestionsSelectInput({ questions, selectedIds, onUpdate 
     setChecked(newChecked);
   };
 
-  const numberOfChecked = (items: number[]) => intersection(checked, items).length;
+  const numberOfChecked = (items: string[]) => intersection(checked, items).length;
 
-  const handleToggleAll = (items: number[]) => () => {
+  const handleToggleAll = (items: string[]) => () => {
     if (numberOfChecked(items) === items.length) {
       setChecked(not(checked, items));
     } else {
@@ -95,18 +98,16 @@ export default function QuestionsSelectInput({ questions, selectedIds, onUpdate 
   };
 
   const handleCheckedRight = () => {
-    setRight(right.concat(leftChecked));
-    setLeft(not(left, leftChecked));
+    onUpdate(right.concat(leftChecked));
     setChecked(not(checked, leftChecked));
   };
 
   const handleCheckedLeft = () => {
-    setLeft(left.concat(rightChecked));
-    setRight(not(right, rightChecked));
+    onUpdate(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
   };
 
-  const customList = (title: React.ReactNode, items: number[]) => (
+  const customList = (title: React.ReactNode, items: string[]) => (
     <Card>
       <CardHeader
         className={classes.cardHeader}
@@ -124,9 +125,12 @@ export default function QuestionsSelectInput({ questions, selectedIds, onUpdate 
       />
       <Divider />
       <List className={classes.list} dense component="div" role="list">
-        {items.map((value: number) => {
+        {items.map((value: string) => {
+          const quest = questions.find(question => question.id === value);
+          if (!quest) {
+            return <></>;
+          }
           const labelId = `transfer-list-all-item-${value}-label`;
-
           return (
               <ListItem key={value} role="listitem" button onClick={handleToggle(value)}>
                 <ListItemIcon>
@@ -137,8 +141,8 @@ export default function QuestionsSelectInput({ questions, selectedIds, onUpdate 
                     inputProps={{ 'aria-labelledby': labelId }}
                   />
                 </ListItemIcon>
-                <Tooltip title={questions[value].question}>
-                  <ListItemText className={styles.itemLabel} id={labelId} primary={questions[value].question} />
+                <Tooltip title={quest.question}>
+                  <ListItemText className={styles.itemLabel} id={labelId} primary={quest.question} />
                 </Tooltip>
               </ListItem>
           );

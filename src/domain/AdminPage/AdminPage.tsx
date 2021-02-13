@@ -1,14 +1,14 @@
 import React, { Suspense } from 'react';
 
-import AppBar from '@domain/App/AppBar/AppBar';
-import MenuNav from "@domain/App/MenuNav/MenuNav";
-import Routes from "@domain/Routes/Routes";
+import AppBar from '@domain/AdminPage/Components/AppBar/AppBar';
+import MenuNav from "@domain/AdminPage/Components/MenuNav/MenuNav";
+import Routes from "@domain/AdminPage/Routes/Routes";
 import { Toolbar } from "@material-ui/core";
 
 import '@style/global.scss';
-import styles from './App.module.scss';
+import styles from './AdminPage.module.scss';
 
-const App = (): JSX.Element => {
+const AdminPage = (): JSX.Element => {
   return (
     <div className={styles.app}>
       <AppBar />
@@ -23,4 +23,4 @@ const App = (): JSX.Element => {
   );
 }
 
-export default App;
+export default AdminPage;

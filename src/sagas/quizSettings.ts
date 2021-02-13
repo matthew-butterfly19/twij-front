@@ -3,7 +3,7 @@ import { all, takeEvery, put, select } from 'redux-saga/effects';
 import { PayloadAction } from "@reduxjs/toolkit";
 import { actions, selectors } from '@store/quizSettings';
 
-const baseUri = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? 'http://localhost:3025' : 'https://twij-api.herokuapp.com';
+export const baseUri = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? 'http://localhost:3025' : 'https://twij-api.herokuapp.com';
 
 function* fetchQuizzes() {
   const quizzesRes = yield axios.get(`${baseUri}/quizzes`);

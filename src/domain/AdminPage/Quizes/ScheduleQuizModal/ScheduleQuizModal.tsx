@@ -1,17 +1,17 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import ScheduleQuizHeader from "@domain/Quizes/ScheduleQuizModal/ScheduleQuizHeader/ScheduleQuizHeader";
+import ScheduleQuizHeader from "@domain/AdminPage/Quizes/ScheduleQuizModal/ScheduleQuizHeader/ScheduleQuizHeader";
 import {actions, selectors, timeToStartUnitsEnum} from '@store/quizSchedule';
 import {selectors as quizSettingsSelectors} from '@store/quizSettings';
-import DateTimeInput from "../../../components/Inputs/FormItems/DateTimeInput/DateTimeInput";
+import DateTimeInput from "@components/Inputs/FormItems/DateTimeInput/DateTimeInput";
 import Modal from '@components/Modal/Modal';
 
 import styles from './ScheduleQuizModal.module.scss';
 import NumberInput from "@components/Inputs/NumberInput/NumberInput";
 import SelectUnitInput, {OptionProps} from "@components/Inputs/SelectUnitInput/SelectUnitInput";
-import QuestionsSelectInput from "@domain/Quizes/ScheduleQuizModal/QuestionsSelectInput/QuestionsSelectInput";
+import QuestionsSelectInput from "@domain/AdminPage/Quizes/ScheduleQuizModal/QuestionsSelectInput/QuestionsSelectInput";
 import TextInput from "@components/Inputs/TextInput/TextInput";
-import EmailsInput from "@domain/Quizes/ScheduleQuizModal/EmailsInput/EmailsInput";
+import EmailsInput from "@domain/AdminPage/Quizes/ScheduleQuizModal/EmailsInput/EmailsInput";
 
 const timeToStartUnitsObj:  OptionProps[] = [
   {
@@ -71,7 +71,7 @@ const ScheduleQuizModal = ():JSX.Element => {
     dispatch(actions.updateTestDurationInMinutes(newValue));
   }
 
-  const onQuestionsIdsUpdateHandle = (questionsIds: number[]) => {
+  const onQuestionsIdsUpdateHandle = (questionsIds: string[]) => {
     dispatch(actions.updateQuestionsIds(questionsIds));
   }
 
@@ -88,9 +88,8 @@ const ScheduleQuizModal = ():JSX.Element => {
   }
 
   const onSubmit = () => {
-
+    dispatch(actions.onScheduleQuizSubmit());
   }
-
 
   return (
     <Modal
@@ -146,7 +145,8 @@ const ScheduleQuizModal = ():JSX.Element => {
         <div>
           <p className={styles.inputRowHeader}>Wybierz pytania biorące udział w Quizie:</p>
           <QuestionsSelectInput
-            questions={currentQuiz.questions}
+            // @ts-ignore
+            questions={currentQuiz.questions.filter(quest => !!quest.id)}
             selectedIds={questionsIds}
             onUpdate={onQuestionsIdsUpdateHandle}
           />

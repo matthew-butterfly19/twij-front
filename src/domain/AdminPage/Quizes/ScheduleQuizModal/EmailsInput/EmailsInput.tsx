@@ -15,7 +15,8 @@ const EmailsInput = ({ onChange, value }: EmailInput): JSX.Element => {
 
   useEffect(() => {
     const addresses = emailAddresses.split(emailAddressesSep || ' ');
-    onChange(addresses);
+    const notEmptyAddresses = addresses.filter(address => !!address);
+    onChange(notEmptyAddresses);
   }, [emailAddresses, emailAddressesSep]);
 
   const onUpdateEmailAddresses = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -51,8 +52,8 @@ const EmailsInput = ({ onChange, value }: EmailInput): JSX.Element => {
         <div className={styles.chips}>
           {
             emailAddresses.length
-            ? (value.map(email => (
-                <Tooltip title={email} aria-label={email}>
+            ? (value.map((email, index) => (
+                <Tooltip key={index} title={email} aria-label={email}>
                   <Chip label={email} />
                 </Tooltip>
               )))

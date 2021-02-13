@@ -1,9 +1,13 @@
 import { all } from 'redux-saga/effects';
 
-import quizSettings from '@sagas/quizSettings';
+import quizSettings from './quizSettings';
+import quizSchedule from './quizSchedule';
+import game from './game';
 
 export default function* rootSaga() {
     yield all([
-      quizSettings()
+      quizSettings(),
+      quizSchedule(),
+      game(),
     ])
 }

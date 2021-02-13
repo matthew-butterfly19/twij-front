@@ -13,12 +13,12 @@ export interface TestProps {
   timeToStart: number;
   timeToStartUnit: timeToStartUnitsEnum;
   testDurationInMinutes: number;
-  questionsIds: number[];
+  questionsIds: string[];
   emails: string[];
   emailMessage: string;
 }
 
-interface QuizScheduleModel {
+export interface QuizScheduleModel {
   modalVisibility: boolean;
   test: TestProps;
 }
@@ -37,6 +37,7 @@ const initialState: QuizScheduleModel = {
 }
 
 const reducers = {
+    onScheduleQuizSubmit: (state: QuizScheduleModel, action: PayloadAction): void => {},
   onModalScheduleOpen: (state: QuizScheduleModel): void => {
     state.modalVisibility = true;
   },
@@ -56,7 +57,7 @@ const reducers = {
   updateTestDurationInMinutes: (state: QuizScheduleModel, action: PayloadAction<number>): void => {
     state.test.testDurationInMinutes = action.payload;
   },
-  updateQuestionsIds: (state: QuizScheduleModel, action: PayloadAction<number[]>): void => {
+  updateQuestionsIds: (state: QuizScheduleModel, action: PayloadAction<string[]>): void => {
     state.test.questionsIds = action.payload;
   },
   updateEmails: (state: QuizScheduleModel, action: PayloadAction<string[]>): void => {
@@ -67,23 +68,24 @@ const reducers = {
   },
 }
 
-export const authorizationSlice = createSlice({
+export const quizScheduleSlice = createSlice({
   name: 'quizSchedule',
   initialState,
   reducers
 });
 
 export const selectors = {
+  test: (state: RootState): TestProps => state.quizSchedule.test,
   modalVisibility: (state: RootState): boolean => state.quizSchedule.modalVisibility,
   startTime: (state: RootState): string => state.quizSchedule.test.startTime,
   timeToStart: (state: RootState): number => state.quizSchedule.test.timeToStart,
   timeToStartUnit: (state: RootState): timeToStartUnitsEnum => state.quizSchedule.test.timeToStartUnit,
   testDurationInMinutes: (state: RootState): number => state.quizSchedule.test.testDurationInMinutes,
-  questionsIds: (state: RootState): number[] => state.quizSchedule.test.questionsIds,
+  questionsIds: (state: RootState): string[] => state.quizSchedule.test.questionsIds,
   emails: (state: RootState): string[] => state.quizSchedule.test.emails,
   emailMessage: (state: RootState): string => state.quizSchedule.test.emailMessage,
 };
 
-export const actions = authorizationSlice.actions;
+export const actions = quizScheduleSlice.actions;
 
-export default authorizationSlice.reducer;
+export default quizScheduleSlice.reducer;

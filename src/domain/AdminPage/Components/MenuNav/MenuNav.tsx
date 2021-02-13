@@ -24,19 +24,19 @@ const menuContent: MenuItemProps[] = [
   {
     key: 'dashboard',
     label: 'Strona główna',
-    path: '/',
+    path: '/admin',
     icon: (<HomeOutlined />)
   },
   {
     key: 'quizes',
     label: 'Quizy',
-    path: '/quizy',
+    path: '/admin/quizy',
     icon: (<InboxIconMt />)
   },
   {
     key: 'schedule-quiz',
     label: 'Zaplanuj Quiz',
-    path: '/planowanie',
+    path: '/admin/planowanie',
     icon: (<MailIconMt />)
   }
 ]

@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import quizSettings from './quizSettings';
 import quizSchedule from './quizSchedule';
+import game from './game';
 
 import rootSaga from '@src/sagas';
 
@@ -18,6 +19,7 @@ const store = configureStore({
     reducer: {
       quizSettings,
       quizSchedule,
+      game,
     },
     middleware
 });
