@@ -56,7 +56,7 @@ export interface AwaitingGameData extends CommonGameData{
   status: string;
   startTimeEnd: string;
   eventDurationInMinutes: number;
-  questionCount: number;
+  questionsCount: number;
 }
 
 export interface GameDidntStartData extends CommonGameData{

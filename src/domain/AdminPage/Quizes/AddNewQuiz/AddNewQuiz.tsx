@@ -10,6 +10,7 @@ const AddNewQuiz = (): JSX.Element => {
   const isCreateQuizModalVisible = useSelector(selectors.modalVisibility);
 
   const onOpenQuizCreation = () => {
+    dispatch(actions.onModalSettingsClose());
     dispatch(actions.onModalSettingsOpen());
   }
 

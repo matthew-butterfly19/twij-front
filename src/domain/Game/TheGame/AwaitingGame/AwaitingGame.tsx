@@ -22,7 +22,7 @@ const AwaitingGame = (): JSX.Element => {
     <div>
       temat: {awaitingGameData.name}<br/>
       przedmiot: {awaitingGameData.subject}<br/>
-      Ilosc pytan: {awaitingGameData.questionCount} <br/>
+      Ilosc pytan: {awaitingGameData.questionsCount} <br/>
       Czas na rozwiązanie: {awaitingGameData.eventDurationInMinutes} <br/>
       Musisz quiz rozpocząć przed: {awaitingGameData.startTimeEnd}<br/>
       <Button onClick={onStartGameClick}>ROZPOCZNIJ GRĘ</Button>
