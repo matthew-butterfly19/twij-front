@@ -4,6 +4,7 @@ import styles from './PendingGame.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {actions, GameResponseStatuses, selectors} from "@store/game";
 import {Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@material-ui/core";
+import moment from "moment";
 
 export interface PageProps {
 }
@@ -30,7 +31,7 @@ const PendingGame = (): JSX.Element => {
     <div>
       {pendingGameData.name} <br/>
       {pendingGameData.subject}<br/>
-      Czas się kończy: {pendingGameData.endTime}<br/>
+      Czas się kończy: {moment(pendingGameData.finishTime).format('HH:mm')}<br/>
       <br/>
       {pendingGameData.questions.map((question, index) => {
         const onChange = (event: ChangeEvent<HTMLInputElement>) => {

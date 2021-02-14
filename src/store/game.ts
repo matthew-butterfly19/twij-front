@@ -48,7 +48,7 @@ export interface QuestionsProps {
 
 export interface PendingGameData extends CommonGameData{
   status: string;
-  endTime: string;
+  finishTime: string;
   questions: QuestionsProps[];
 }
 
