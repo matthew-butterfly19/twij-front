@@ -43,7 +43,10 @@ const reducers = {
   },
   onModalScheduleClose: (state: QuizScheduleModel): void => {
     state.modalVisibility = false;
-    state.test = {...initialState.test};
+    state.test = {
+      ...initialState.test,
+      startTime: moment().add('21', 'minutes').toISOString(),
+    };
   },
   updateStartTime: (state: QuizScheduleModel, action: PayloadAction<string>): void => {
     state.test.startTime = action.payload;
