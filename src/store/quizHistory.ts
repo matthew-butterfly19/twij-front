@@ -22,6 +22,7 @@ export interface QuizHistoryModel {
   subject: string;
   startTime: string;
   status: string;
+  maxPoints: number;
   members: MemberProps[];
 }
 

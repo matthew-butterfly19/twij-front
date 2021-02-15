@@ -25,6 +25,7 @@ const useRowStyles = makeStyles({
 
 interface RowProps {
   data: MemberProps;
+  maxPoints: number;
 }
 
 const convertStatus = (status: String) => {
@@ -39,10 +40,9 @@ const convertStatus = (status: String) => {
   }
 }
 
-function Row({ data }: RowProps) {
+function Row({ data, maxPoints }: RowProps) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
-
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -58,7 +58,7 @@ function Row({ data }: RowProps) {
           {data.email}
         </TableCell>
         <TableCell align="right">{convertStatus(data.status)}</TableCell>
-        <TableCell align="right">{data.points}</TableCell>
+        <TableCell align="right">{data.points} / {maxPoints}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -98,9 +98,10 @@ function Row({ data }: RowProps) {
 
 export interface CollapsibleTableProps {
   rows: MemberProps[];
+  maxPoints: number;
 }
 
-export default function CollapsibleTable({ rows }: CollapsibleTableProps) {
+export default function CollapsibleTable({ rows, maxPoints }: CollapsibleTableProps) {
   return (
     <TableContainer component={"div"} style={{backgroundColor: 'rgb(225, 225, 225)'}}>
       <Table aria-label="collapsible table">
@@ -114,7 +115,7 @@ export default function CollapsibleTable({ rows }: CollapsibleTableProps) {
         </TableHead>
         <TableBody>
           {rows.map((row, index) => (
-            <Row key={index} data={row} />
+            <Row key={index} data={row} maxPoints={maxPoints}/>
           ))}
         </TableBody>
       </Table>

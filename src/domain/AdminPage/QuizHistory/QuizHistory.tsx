@@ -38,7 +38,7 @@ const QuizHistory = (): JSX.Element => {
           </div>
         );
         const content = (
-          <CollapsibleTable rows={quizHistory.members} />
+          <CollapsibleTable maxPoints={quizHistory.maxPoints} rows={quizHistory.members} />
         );
         return (
           <div key={index}>
