@@ -42,8 +42,8 @@ const reducers = {
     state.modalVisibility = true;
   },
   onModalScheduleClose: (state: QuizScheduleModel): void => {
-    state.test = initialState.test;
     state.modalVisibility = false;
+    state.test = {...initialState.test};
   },
   updateStartTime: (state: QuizScheduleModel, action: PayloadAction<string>): void => {
     state.test.startTime = action.payload;
