@@ -5,6 +5,7 @@ import PrivateRoute from "@domain/AdminPage/Routes/PrivateRoute/PrivateRoute";
 
 const Dashboard = lazy(() => import('@domain/AdminPage/Dashboard/Dashboard'));
 const QuizSettings = lazy(() => import('@domain/AdminPage/Quizes/Quizzes'));
+const QuizHistory = lazy(() => import('@domain/AdminPage/QuizHistory/QuizHistory'));
 
 const Routes = (): JSX.Element => {
   return (
@@ -18,6 +19,11 @@ const Routes = (): JSX.Element => {
         path='/admin/quizy'
         exact={true}
         component={QuizSettings}
+      />
+      <PrivateRoute
+        path='/admin/historia'
+        exact={true}
+        component={QuizHistory}
       />
     </Switch>
   );

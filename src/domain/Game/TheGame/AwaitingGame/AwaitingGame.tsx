@@ -21,11 +21,11 @@ const AwaitingGame = (): JSX.Element => {
 
   return (
     <div>
-      temat: {awaitingGameData.name}<br/>
-      przedmiot: {awaitingGameData.subject}<br/>
+      Temat: {awaitingGameData.name}<br/>
+      Przedmiot: {awaitingGameData.subject}<br/>
       Ilosc pytan: {awaitingGameData.questionsCount} <br/>
       Czas na rozwiązanie: {awaitingGameData.eventDurationInMinutes} <br/>
-      Musisz quiz rozpocząć przed: {moment(awaitingGameData.startTimeEnd).format('HH:mm')}<br/>
+      Musisz rozpocząć Quiz przed: {moment(awaitingGameData.startTimeEnd).format('HH:mm')}<br/>
       <Button onClick={onStartGameClick}>ROZPOCZNIJ GRĘ</Button>
     </div>
   );

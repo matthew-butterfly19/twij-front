@@ -27,7 +27,7 @@ const FoundedQuizStatusHandler = (): JSX.Element => {
     if (gameStatus === GameResponseStatuses.timeToStartOver) {
       return (
         <div>
-          Skończył się czas na rozpoczęcie gry.
+          Skończył się czas na rozpoczęcie Quizu.
         </div>
       );
     }
@@ -41,7 +41,7 @@ const FoundedQuizStatusHandler = (): JSX.Element => {
     if (gameStatus === GameResponseStatuses.finished) {
       return (
         <div>
-          Gra zakończona. Wszystko poszło dobrze! Oczekuj na wyniki od prowadzącego.
+          Quiz zakończony. Wszystko poszło dobrze! Oczekuj na wyniki od prowadzącego.
         </div>
       );
     }

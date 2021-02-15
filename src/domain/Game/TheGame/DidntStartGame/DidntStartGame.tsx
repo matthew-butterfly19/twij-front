@@ -9,12 +9,12 @@ const DidntStartGame = (): JSX.Element => {
   if (!didntStartGameData) {
     return <>ups</>;
   }
+
   return (
     <div>
-      quiz: {didntStartGameData.name}<br/>
-      temat: {didntStartGameData.subject}<br/>
-      Gra rozpocznie się o godzinie:<br/>
-      {moment(didntStartGameData.startTime).format('HH:mm')}
+      Quiz: {didntStartGameData.name}<br/>
+      Temat: {didntStartGameData.subject}<br/>
+      Quiz rozpocznie się o godzinie: {moment(didntStartGameData.startTime).format('HH:mm')} <br/>
     </div>
   );
 }

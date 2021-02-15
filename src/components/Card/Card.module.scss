@@ -1,0 +1,20 @@
+.card {
+  margin-top: 50px;
+  width: 600px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: rgb(225, 225, 225);
+
+  .cardHeader {
+    background-color: rgb(72, 150, 255);
+    padding: 10px;
+  }
+  .cardContent {
+    padding: 10px;
+  }
+}
+
+.bigSize {
+  min-width: 600px;
+  width: 90%;
+}

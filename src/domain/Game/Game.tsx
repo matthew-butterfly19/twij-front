@@ -24,7 +24,7 @@ const Game = (): JSX.Element => {
       return <Page>Pobieranie informacji o grze...</Page>;
     }
     if (storeStatus === StoreStatuses.gameNotFound) {
-      return <Page>Gra nie znaleziona</Page>;
+      return <Page>Quiz nie znaleziona</Page>;
     }
     if (storeStatus === StoreStatuses.gameFounded) {
       return (

@@ -34,11 +34,11 @@ const menuContent: MenuItemProps[] = [
     icon: (<InboxIconMt />)
   },
   {
-    key: 'schedule-quiz',
-    label: 'Zaplanuj Quiz',
-    path: '/admin/planowanie',
+    key: 'quiz-history',
+    label: 'Historia',
+    path: '/admin/historia',
     icon: (<MailIconMt />)
-  }
+  },
 ]
 
 const MenuNav = (): JSX.Element => {
@@ -52,7 +52,6 @@ const MenuNav = (): JSX.Element => {
   const isItCurrentPath = (path: string) => {
     return location.pathname === path;
   }
-
   return (
     <DrawerMt
       variant="permanent"
